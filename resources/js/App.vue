@@ -199,6 +199,10 @@ export default {
         .post(command.name, formData)
         .then((response) => {
           this.output = response.data;
+          if (data.auto_redirect_url) {
+            window.open(data.auto_redirect_url, "_blank"); // abre nueva pestaña
+            return; // opcional: evitar que caiga en output
+          }
         })
         .catch((err) => {
           this.selectedCommand = command;
