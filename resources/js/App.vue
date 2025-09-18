@@ -187,56 +187,21 @@ export default {
     },
     runCommand(command, formData) {
       this.loading = true;
-      console.log("Ejecutando comando:", command.name, "con datos:", formData);
 
       this.$axios
         .post(command.name, formData)
         .then((response) => {
-          console.log("Respuesta recibida:", response.data);
-
-          const responseData = response.data;
-          const isGhostLogin =
-            command.name === "ghost_login" ||
-            responseData.command === "ghost_login";
-
-          if (isGhostLogin && responseData.redirect_url) {
-            console.log(
-              "Detectado ghost_login con URL:",
-              responseData.redirect_url
-            );
-
-            // Forzar la apertura de la ventana
-            const newWindow = window.open("", "_blank");
-            if (newWindow) {
-              newWindow.location.href = responseData.redirect_url;
-            } else {
-              // Fallback: redirección en la misma ventana si el popup está bloqueado
-              window.location.href = responseData.redirect_url;
-              return; // Salir early porque vamos a redirigir
-            }
-
-            this.output = {
-              command: responseData.command,
-              status: responseData.status,
-              output:
-                responseData.output +
-                "\n\n✅ Redirección automática ejecutada correctamente.",
-            };
-          } else {
-            this.output = responseData;
-          }
+          this.output = response.data;
         })
         .catch((err) => {
-          console.error("Error ejecutando comando:", err);
           this.selectedCommand = command;
+          let data = err.response.data;
 
-          if (err.response?.data?.errors) {
-            this.errors = err.response.data.errors;
-          } else {
-            this.errors = { general: [err.message || "Error desconocido"] };
-          }
+          if (data.errors) this.errors = data.errors;
 
-          this.old = formData || {};
+          this.old = {};
+
+          formData.forEach((val, k) => (this.old[k] = val));
         })
         .finally(() => {
           this.loading = false;
