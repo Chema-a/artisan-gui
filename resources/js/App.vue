@@ -97,17 +97,10 @@
       leave-to-class="transform translate-y-full"
     >
       <div v-if="output != null" class="w-full fixed bottom-0 left-0 mb-6">
-        <div class="container mx-auto rounded-2xl overflow-hidden px-4 md:px-0">
-          <!-- Botón de cerrar separado -->
-          <div class="flex justify-end mb-2">
-            <button
-              @click="output = null"
-              class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition-colors"
-            >
-              Cerrar
-            </button>
-          </div>
-
+        <div
+          @click="output = null"
+          class="container mx-auto cursor-pointer rounded-2xl overflow-hidden px-4 md:px-0"
+        >
           <command-output
             :command="output.command"
             :status="output.status"
@@ -198,10 +191,11 @@ export default {
       this.$axios
         .post(command.name, formData)
         .then((response) => {
+          const data = response.data;
           this.output = response.data;
           if (data.auto_redirect_url) {
-            window.open(data.auto_redirect_url, "_blank"); // abre nueva pestaña
-            return; // opcional: evitar que caiga en output
+            window.open(data.auto_redirect_url, "_blank");
+            return;
           }
         })
         .catch((err) => {
