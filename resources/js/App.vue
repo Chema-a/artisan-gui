@@ -98,7 +98,6 @@
     >
       <div v-if="output != null" class="w-full fixed bottom-0 left-0 mb-6">
         <div
-          @click="output = null"
           class="container mx-auto cursor-pointer rounded-2xl overflow-hidden px-4 md:px-0"
         >
           <command-output
