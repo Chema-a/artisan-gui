@@ -97,10 +97,17 @@
       leave-to-class="transform translate-y-full"
     >
       <div v-if="output != null" class="w-full fixed bottom-0 left-0 mb-6">
-        <div
-          @click="output = null"
-          class="container mx-auto cursor-pointer rounded-2xl overflow-hidden px-4 md:px-0"
-        >
+        <div class="container mx-auto rounded-2xl overflow-hidden px-4 md:px-0">
+          <!-- Botón de cerrar separado -->
+          <div class="flex justify-end mb-2">
+            <button
+              @click="output = null"
+              class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition-colors"
+            >
+              Cerrar
+            </button>
+          </div>
+
           <command-output
             :command="output.command"
             :status="output.status"

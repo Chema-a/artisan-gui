@@ -727,6 +727,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -991,16 +998,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['command', 'status', 'output'],
+  props: ["command", "status", "output"],
   computed: {
     styledOutput: function styledOutput() {
       var _parse = (0,ansicolor__WEBPACK_IMPORTED_MODULE_0__.parse)(this.output),
         spans = _parse.spans;
-      var styled = '';
+      var styled = "";
       var _iterator = _createForOfIteratorHelper(spans),
         _step;
       try {
@@ -4403,14 +4409,25 @@ var render = function () {
                   "div",
                   {
                     staticClass:
-                      "container mx-auto cursor-pointer rounded-2xl overflow-hidden px-4 md:px-0",
-                    on: {
-                      click: function ($event) {
-                        _vm.output = null
-                      },
-                    },
+                      "container mx-auto rounded-2xl overflow-hidden px-4 md:px-0",
                   },
                   [
+                    _c("div", { staticClass: "flex justify-end mb-2" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition-colors",
+                          on: {
+                            click: function ($event) {
+                              _vm.output = null
+                            },
+                          },
+                        },
+                        [_vm._v("\n            Cerrar\n          ")]
+                      ),
+                    ]),
+                    _vm._v(" "),
                     _c("command-output", {
                       attrs: {
                         command: _vm.output.command,
@@ -4671,6 +4688,11 @@ var render = function () {
       staticClass:
         "rounded-2xl shadow-2xl bg-gray-800 text-gray-300 p-6 overflow-y-auto",
       staticStyle: { "max-height": "50vh" },
+      on: {
+        click: function ($event) {
+          $event.stopPropagation()
+        },
+      },
     },
     [
       _c("div", { staticClass: "mb-4 flex" }, [
@@ -4682,7 +4704,7 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "mb-4 text-gray-500" }, [
-        _vm._v("\n    Status: " + _vm._s(_vm.status) + "\n  "),
+        _vm._v("Status: " + _vm._s(_vm.status)),
       ]),
       _vm._v(" "),
       _c("div", {
